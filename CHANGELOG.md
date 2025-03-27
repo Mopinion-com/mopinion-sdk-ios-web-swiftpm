@@ -1,3 +1,10 @@
+# 0.7.3
+- New GitHub location.
+- Built with Xcode 15.4, tested on iOS 17.
+- New behaviour for the deployment condition "Show only to a percentage of users". Now a percentage value of 0% will not show the associated form. 
+- Instead of matching only exact iOS versions like 17.5.1, you can now specify major or minor iOS version families. So specifying iOS 17 or 17.5 will now also match version 17.5.1.
+- the SDK no longer clears all cookies. So app-wide cookies for other webviews within the app are not affected.
+
 # 0.7.2
 - Built with Xcode 15.3, tested on iOS 17.
 - Adds NSPrivacyCollectedDataTypes to Apple's PrivacyInfo, in order to let apps using the SDK pass Xcode privacy reports. Note that actually this should not have been required as the SDK meets the criteria that [Apple states in "... data that may not need to be disclosed include data collected in optional feedback forms ..."](https://developer.apple.com/app-store/app-privacy-details/#optional-disclosure). The collected data types that leave the device are: 
