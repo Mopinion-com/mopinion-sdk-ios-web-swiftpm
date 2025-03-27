@@ -6,8 +6,7 @@ Include the SDK as a Framework in your Xcode project to use Mopinion mobile web 
 Other Mopinion SDK's are also available:
 
 - [iOS SDK](https://github.com/Mopinion-com/mopinion-sdk-ios)
-- [Android SDK](https://github.com/Mopinion-com/mopinion-sdk-android)
-- [Android web SDK](https://github.com/Mopinion-com/mopinion-sdk-android-web)
+- [Android SDKs](https://github.com/Mopinion-com/mopinion-sdk-android)
 
 ### Contents
 
@@ -22,23 +21,17 @@ Other Mopinion SDK's are also available:
  - [2.4 Using callback mode](#callback-mode)
 - [3. Edit triggers](#edit-triggers)
 
-## Release notes for version 0.7.3
+## Release notes for version 0.7.4
 
-### New in 0.7.3
-
-- New behaviour for the deployment condition "Show only to a percentage of users". It supported values from 1-100%, any other value behaved like 100%; starting a session and triggering only again after the number of days as specified by the deployment condition "Refresh session/condition settings per visitor after .. days". <br>Now a percentage value of 0% will not show the associated form. Effectively it disables the form until a non-zero percentage is set outside the session for this condition.
-
-### Changes in 0.7.3
-- Instead of matching only exact iOS versions like 17.5.1, you can now specify major or minor iOS version families. So specifying iOS 17 or 17.5 will now also match version 17.5.1.
-- the SDK no longer clears all cookies. So app-wide cookies for other webviews within the app are not affected.
-
-### Known issues in 0.7.3
-- When using 0% for the deployment condition "Show only to a percentage of users", the SDK *does* actually set a session. That is consistent behaviour with other values for this condition. However from the debug log messages `"random: percentage value of 0 will never trigger form or set session... "` the "or set session..." is not correct and should have been omitted. 
+### Changes in 0.7.4
+- Corrected wrong 0% log message `"random: percentage value of 0 will never trigger form or set session... "` to `"random: percentage value of 0 will never trigger form."`.
+- Fixed a retain cycle issue with the delegate or calling uiviewcontroller.
+- Fixed the deployment condition "Show only on specific OS (and OS version)" to also work for  multiple versions specified with leading/trailing spaces.
 
 ### Remarks
 - This readme applies to both the CocoaPods and Swift Package Manager distribution, as the latter uses the same binaries as the GitHub release for CocoaPods. 
-- Our Swift Package Manager distribution has changed location. So if you installed an earlier version of our package, you should delete it from your project.
-- Built with Xcode 15.4, tested on iOS 17 with CocoaPods 1.15.2.
+- Our Swift Package Manager distribution has changed location starting from version 0.7.3. So if you installed an earlier version of our package, you should delete it from your project.
+- Built with Xcode 16.2 and tested on iOS 18.3.1, CocoaPods 1.16.2.
 
 <br>
 
@@ -46,19 +39,19 @@ Other Mopinion SDK's are also available:
 
 The Mopinion Mobile SDK Framework can be installed via either the Swift Package Manager or the popular dependency manager [Cocoapods](https://cocoapods.org).
 
-### <a name="install-spm">1.1 Install using Swift Package Manager in Xcode 15</a>
+### <a name="install-spm">1.1 Install using Swift Package Manager in Xcode</a>
 
 1. If you no longer want to use CocoaPods for your project, then in terminal, in the root folder of your project execute: <br>
 `pod deintegrate`
 
 2. Open your project's `<your-project-name>.xcodeproj` file in Xcode.
-3. If you had version 0.7.2-swiftpm or older of our package installed, delete it: From your project, under Package Depencies, remove the package "mopinion-sdk-ios-web".
-3. In Xcode 15, from the menu, select `File -> Add Package Dependencies…`.  
+3. If you had version `0.7.2-swiftpm` or older of our package installed, delete it: From your project, under Package Depencies, remove the package "mopinion-sdk-ios-web".
+3. In Xcode 16, from the menu, select `File -> Add Package Dependencies…`.  
 The Swift Package Collections panel appears. 
 4. In the search field of the panel, enter `https://github.com/Mopinion-com/mopinion-sdk-ios-web-swiftpm` and press enter.
 5. From the drop-down button `Dependency Rule`, choose one of the following options:
-	- `Exact Version` and in the version field enter `0.7.3`.
-	- `Up to Next Major Version` and in the version field enter `0.7.3`.
+	- `Exact Version` and in the version field enter `0.7.4`.
+	- `Up to Next Major Version` and in the version field enter `0.7.4`.
 6. Click the button `Add Package`. A package product selection panel appears.
 7. Choose `MopinionSDKWeb` and click the button `Add Package`. 
 
@@ -92,7 +85,7 @@ $ sudo gem install cocoapods
 platform :ios, '12.0'
 use_frameworks!
 target '<YOUR TARGET>' do
-	pod 'MopinionSDKWeb', '>= 0.7.3'
+	pod 'MopinionSDKWeb', '>= 0.7.4'
 end
 ```
 
